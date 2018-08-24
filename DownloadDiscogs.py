@@ -17,14 +17,14 @@ import time
 import os
 
 # Enter Discogs Token for Developement (Refer to Discogs/settings/Developer)
-token = "sHfxyRqgndyzVnelQINOTerYZKdSrrXTFMKQhkSb"
+token = "ENTER TOKEN HERE"
 
 # AUTHENTICATION HEADER (https://curl.trillworks.com/#) --- Do not Modify
 headers = {
     'Authorization': 'Discogs token='+token,
 }
 
-# Create Search Entries
+# Create Search Query
 path = 'https://api.discogs.com/database/search?'
 format_exact = "12\""
 year = ""
@@ -86,11 +86,11 @@ for page in range(startpage,1000):
         if len(masterStyles)==1 and len(masterGenres)==1:
             if masterStyles[0]==style and masterGenres[0]==genre:
                 # create individual folder for master release
-                if not os.path.isdir("../"+mainsubfolder+"/"+str(masterID)):
-                    os.mkdir("../"+mainsubfolder+"/"+str(masterID))
+                if not os.path.isdir(mainsubfolder+"/"+str(masterID)):
+                    os.mkdir(mainsubfolder+"/"+str(masterID))
 
                 # Save master metadata json
-                with open("../"+mainsubfolder+"/"+str(masterID)+"/"+str(masterID)+".json", "w") as fp:
+                with open(mainsubfolder+"/"+str(masterID)+"/"+str(masterID)+".json", "w") as fp:
                     json.dump(masterdata, fp)
 
                 print("Metadata for Master Release ID# "+str(masterID)+" Successfully created")
