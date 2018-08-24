@@ -5,7 +5,9 @@ The python codes available through this project can be used to collect releases 
 ## Dependancies
 
 * youtube-dl: available at https://github.com/rg3/youtube-dl/blob/master/README.md#embedding-youtube-dl
+* Numpy
 * Discogs Developer API Token: obtain from https://www.discogs.com/developers/
+* Google/Youtube Developer API 
 
 ## How to Use
 #### Collect releases from Discogs using 
@@ -35,4 +37,25 @@ Structure of collected releases: project_root/**year_style_genre**/**ReleaseID**
 
 Example:                         project_root/1985_Funk_Slectronic/158041/158041.json                       
     
-  
+#### Download Videos
+1. Open **.py**
+
+2. Modify download settings:
+```
+# Enter youtube API
+utubeDataAPI = "Enter Youtube Developer API Here"
+
+# Enter Directory containing discogs releases
+SearchDirectory = "1985_Funk_Electronic"
+
+# specify keywords essential for downloading videos
+keyWords = None
+#keyWords="Instrumental"
+
+# specify Max number releases to download videos for
+maxNumberOfReleasesToReview = 1000
+
+# Download most popular video or all videos? (Set False for most popular)
+allLinks = True
+```
+3. Run the code and the audio from the videos will be collected in each of the releaseID folders
