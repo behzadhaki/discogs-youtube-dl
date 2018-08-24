@@ -6,6 +6,8 @@ The python codes available through this project can be used to collect releases 
 
 * youtube-dl: available at https://github.com/rg3/youtube-dl/blob/master/README.md#embedding-youtube-dl
 * Numpy
+
+## Requirements
 * Discogs Developer API Token: obtain from https://www.discogs.com/developers/
 * Google/Youtube Developer API 
 
