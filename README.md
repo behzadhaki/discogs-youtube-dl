@@ -1,6 +1,6 @@
 # discogs-youtube-dl
 
-The python codes available through this project can be used to collect releases from Discogs. For each release, if there is a video link available, the most popular video will be downloaded
+The python codes available through this project can be used to collect releases from Discogs. For each release, if there is a video link available, the audio from the video will be downloaded
 
 ## Dependancies
 
