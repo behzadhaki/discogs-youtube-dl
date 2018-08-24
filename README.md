@@ -40,7 +40,7 @@ Structure of collected releases: project_root/**year_style_genre**/**ReleaseID**
 Example:                         project_root/1985_Funk_Slectronic/158041/158041.json                       
     
 #### Download Videos
-1. Open **.py**
+1. Open **YoutubeDownloader.py**
 
 2. Modify download settings:
 ```
