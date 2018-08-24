@@ -1,27 +1,27 @@
 import json
-
 import shutil, os
-
 from glob import glob
-
 from youtube_dl_downloader import downloadFromVideosLinks
-
 import re
-
 import requests
-
-
 from datetime import date
-
 import numpy as np
 
-def getURLs (ReleaseDirectory, keyWords=None,allLinks = False):
-    #if allLinks == False, returns the best link as defined below
-    #returns the best YouTube URL representing a release
-    #best representation:
-    #                 1. No remix or rework or alternative version
-    #                 2. Most popular release on youtube ranked based on Total YT view * likes/(likes+dislikes)
-    #                 3.
+def getURLs (ReleaseDirectory, keyWords=None, allLinks = False):
+    """
+    Collects youtube links availbale for a discogs release (obtained from a directory containing
+                                                            the [releaseID].json file)
+    :param ReleaseDirectory: directory containing the [releaseID].json file
+    :param keyWords:         Word that must exist in a video title to be collected
+    :param allLinks:         If true, returns all the valid links, otherwise, only returns the most popular video
+            Most popular release on youtube ranked based on Total YT view * likes/(likes+dislikes)/(time-since-upload)
+    :return:
+           id:               release id
+           url_list:         list of youtube urls available for release
+           title_list:       titles for each youtube video in the url_list
+           linksExist:       returns true if no links available
+    """
+
     if allLinks:
         url_list = []
         title_list = []
@@ -65,15 +65,13 @@ def getURLs (ReleaseDirectory, keyWords=None,allLinks = False):
 
         return id, url_list, title_list,linksExist
 
-
-
-def getMostPopularVideos ( url_list, youtubeAPIKey = "AIzaSyAZ_O1GtX3AWPLM4Y6hPA-HrQJC5uf3a5Q", PopularityLimit = 1000):
-    #Popularity =  viewes/(years since uploaded)*likes/(likes+dislikes)
-    #reference: https://www.quora.com/How-can-I-get-the-count-of-likes-and-dislikes-of-each-and-every-video-on-YouTube-Does-YouTube-Data-API-support-that
-    #https://developers.google.com/youtube/v3/getting-started#part
+def getMostPopularVideos (url_list, youtubeAPIKey, PopularityLimit = 1000):
+    # Popularity =  viewes/(years since uploaded)*likes/(likes+dislikes)
+    # reference: https://www.quora.com/How-can-I-get-the-count-of-likes-and-dislikes-of-each-and-every-video-on-YouTube-Does-YouTube-Data-API-support-that
+    # https://developers.google.com/youtube/v3/getting-started#part
     # returns MostPopularCnt number of links in descending popularity rate
 
-    #https: // www.googleapis.com / youtube / v3 / videos?id = C0DPdy98e4c & key = YOUR_API_KEY & part = statistics
+    # https: // www.googleapis.com / youtube / v3 / videos?id = C0DPdy98e4c & key = YOUR_API_KEY & part = statistics
 
     viewcounts = []
     likecounts = []
@@ -129,13 +127,8 @@ def getMostPopularVideos ( url_list, youtubeAPIKey = "AIzaSyAZ_O1GtX3AWPLM4Y6hPA
         return [], [], [], [], [], []
 
 
-
-
-
-
-
-
-def downloadYoutubeFromDiscogsMeta(SearchDirectory, utubeDataAPI, maxNumberOfReleasesToReview=10,keyWords=None , allLinks = False):
+def downloadYoutubeFromDiscogsMeta(SearchDirectory, utubeDataAPI, maxNumberOfReleasesToReview=10,
+                                   keyWords=None , allLinks=False):
 
     MasterReleaseSubdirectories = glob(SearchDirectory + "/*/")
 
@@ -187,19 +180,24 @@ def downloadYoutubeFromDiscogsMeta(SearchDirectory, utubeDataAPI, maxNumberOfRel
             shutil.move(ReleaseDirectory, withoutAudioDirectory)
 
 
-year = ""
-#style = "House"
-#genre = "Electronic"
+# Enter youtube API
+utubeDataAPI = " Enter Youtube Developer API Token Here"
 
-style = "Soca"
-genre = "Reggae"
+# Enter Directory containing discogs releases
+SearchDirectory = "_Funk_Electronic"
 
-utubeDataAPI = "AIzaSyAZ_O1GtX3AWPLM4Y6hPA-HrQJC5uf3a5Q"
+# specify keywords essential for downloading videos
+keyWords = None
+#keyWords="Instrumental"
 
+# specify Max number releases to download videos for
+maxNumberOfReleasesToReview = 1000
 
+# Download most popular video or all videos? (Set False for most popular)
+allLinks = True
 
-SearchDirectory = "../"+year+"_"+style+"_"+genre
-
-
-#downloadYoutubeFromDiscogsMeta(SearchDirectory, utubeDataAPI, maxNumberOfReleasesToReview=1000,keyWords="Instrumental",allLinks=True)
-downloadYoutubeFromDiscogsMeta(SearchDirectory, utubeDataAPI, maxNumberOfReleasesToReview=1000,keyWords=None,allLinks=True)
+downloadYoutubeFromDiscogsMeta(SearchDirectory,
+                               utubeDataAPI,
+                               maxNumberOfReleasesToReview=maxNumberOfReleasesToReview,
+                               keyWords=keyWords,
+                               allLinks=allLinks)
