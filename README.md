@@ -30,8 +30,9 @@ per_page = 1000
 startpage = 1
 ```
 4. Run the code and the metadata for each release will be available as a json file in a folder with the same release ID. 
-  Structure of collected releases: project_root/**year_style_genre**/**ReleaseID**/ReleaseID.json
   
-  Example:  project_root/1985_Funk_Slectronic/158041/158041.json                       
+Structure of collected releases: project_root/**year_style_genre**/**ReleaseID**/ReleaseID.json
+
+Example:                         project_root/1985_Funk_Slectronic/158041/158041.json                       
     
   
